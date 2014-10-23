@@ -22,7 +22,7 @@ import jp.co.fukuokak.zeronavigator.model.Human;
 
 public class MyActivity extends BaseActivity {
 
-    //For Navigation Drawer
+    //For Navigation Drawera
     Calendar calendar = Calendar.getInstance();
     ArrayList<CalendarValue> cvArray;
 
