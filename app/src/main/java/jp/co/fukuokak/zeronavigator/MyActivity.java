@@ -1,9 +1,11 @@
 package jp.co.fukuokak.zeronavigator;
 
+import android.app.ActionBar;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,12 +25,6 @@ public class MyActivity extends BaseActivity {
     //For Navigation Drawer
     Calendar calendar = Calendar.getInstance();
     ArrayList<CalendarValue> cvArray;
-    String[] menuItems;
-            //= {"Item 1", "Item 2", "Item 3"};
-    ArrayAdapter<String> adapter;
-    DrawerLayout drawerLayout;
-    ListView drawerListView;
-    ActionBarDrawerToggle drawerToggle;
 
     PlaceholderFragment fragment = new PlaceholderFragment();
 
@@ -37,31 +33,9 @@ public class MyActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
 
-        drawerLayout =
-                (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawerListView =
-                (ListView) findViewById(R.id.left_drawer);
-
-
-        this.cvArray = setCalendarValueList(calendar);
-        menuItems = getSelectItemList(cvArray);
-
-        adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                menuItems);
-        drawerListView.setAdapter(adapter);
-        drawerListView.setOnItemClickListener(new LeftDrawerItemClickListener(this, cvArray));
-
-        navigationSetDrawer();
-
-
-
-
         fragment.setText1("AAA");
         Human iAmKen = new Human("1", "2", "3");
         fragment.setHuman(iAmKen);
-
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -69,11 +43,6 @@ public class MyActivity extends BaseActivity {
                     .commit();
         }
     }
-
-    private void navigationFindView() {}
-
-
-    private void navigationSetListView() {}
 
     public ArrayList<CalendarValue> setCalendarValueList(Calendar calendar) {
 
@@ -97,20 +66,6 @@ public class MyActivity extends BaseActivity {
         String[] selectItem = (String[]) menuArray.toArray(new String[0]);
         return selectItem;
     }
-
-    private void navigationSetDrawer() {
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-
-        drawerToggle = new ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                R.drawable.ic_drawer1,
-                R.string.drawer_open,
-                R.string.drawer_close);
-        drawerLayout.setDrawerListener(drawerToggle);
-    }
-
 
     @Override
     protected void onResume() {
@@ -136,15 +91,4 @@ public class MyActivity extends BaseActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
-    }
 }
